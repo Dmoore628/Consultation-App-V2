@@ -14,8 +14,8 @@ def get(key: str, default: Any = None) -> Any:
     return os.environ.get(key, default)
 
 
-MODEL_PROVIDER = get("MODEL_PROVIDER", "mock")  # mock | openai | ollama
-MODEL_NAME = get("MODEL_NAME", "gpt-4o")
+MODEL_PROVIDER = get("MODEL_PROVIDER", "ollama")  # mock | openai | ollama
+MODEL_NAME = get("MODEL_NAME", "llama3.1:8b")
 MODEL_TEMPERATURE = float(get("MODEL_TEMPERATURE", 0.2))
 MODEL_MAX_TOKENS = int(get("MODEL_MAX_TOKENS", 1500))
 OUTPUT_PATH = get("OUTPUT_PATH", "outputs")
