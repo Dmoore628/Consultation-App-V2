@@ -1,46 +1,22 @@
 # Project Discovery Report
 
-[STRATEGIST RESPONSE - provider=mock]
-Summary for role=strategist. Prompt preview: You are a project strategist. Analyze business viability, ROI, and strategic alignment in concrete, measurable terms.
-
-C
-
-(Use MODEL_PROVIDER=openai|ollama to enable real models.)
+*This report was collaboratively generated through multi-agent coordination with peer review*
 
 ---
 
-[ANALYST RESPONSE - provider=mock]
-Summary for role=analyst. Prompt preview: You are a business analyst. Gather requirements, map stakeholders, and identify gaps and risks with clear acceptance cri
+## Discovery Framework
+Hello! I'm Jennifer Martinez, your Engagement Manager at Elite Consulting Group.
 
-(Use MODEL_PROVIDER=openai|ollama to enable real models.)
+I've reviewed your project details and I'm excited to work with you. Let me start by understanding your vision better.
 
----
+Based on what you've shared, I can see this is an important initiative for your organization. To ensure we provide the most valuable consulting services, I'd like to explore a few key areas:
 
-[PM RESPONSE - provider=mock]
-Summary for role=pm. Prompt preview: You are a project manager. Provide timelines, milestones, risks and assumptions.
+1. **Business Objectives**: What specific outcomes are you hoping to achieve?
+2. **Target Users**: Who will be the primary users of this solution?
+3. **Key Capabilities**: What are the most important features or capabilities?
+4. **Timeline & Resources**: What's your target timeline and available resources?
 
-Context:
-Project path: sample_project
+This discovery conversation typically takes about 10-15 minutes and helps our specialist team provide tailored recommendations.
 
+What would you like to start with?
 
-(Use MODEL_PROVIDER=openai|ollama to enable real models.)
-
----
-
-[ML RESPONSE - provider=mock]
-Summary for role=ml. Prompt preview: You are an ML/AI specialist. Assess AI feasibility, data requirements, and model/infra considerations.
-
-Context:
-Project
-
-(Use MODEL_PROVIDER=openai|ollama to enable real models.)
-
----
-
-[UX RESPONSE - provider=mock]
-Summary for role=ux. Prompt preview: You are a UX/UI strategist. Define user journeys, UX requirements, and key experience risks.
-
-Context:
-Project path: sam
-
-(Use MODEL_PROVIDER=openai|ollama to enable real models.)

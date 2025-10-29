@@ -1,30 +1,57 @@
 # Technical Architecture
 
-[ARCHITECT RESPONSE - provider=mock]
-Summary for role=architect. Prompt preview: You are a senior solution architect. Produce a clear, non-jargon architecture description and component list.
+## System Architecture Overview
+As your Architect, I'm analyzing your requirements and will provide detailed recommendations.
 
-Context:
+Based on your project description, I can see several key areas that need attention:
 
+1. **Core Requirements**: Understanding the essential functionality
+2. **Technical Approach**: Determining the best implementation strategy  
+3. **Timeline & Resources**: Planning realistic delivery expectations
+4. **Risk Assessment**: Identifying potential challenges and mitigations
 
-(Use MODEL_PROVIDER=openai|ollama to enable real models.)
+I'm working with our specialist team to provide comprehensive analysis and recommendations.
 
-[FULLSTACK RESPONSE - provider=mock]
-Summary for role=fullstack. Prompt preview: You are a senior full-stack developer. Validate implementation feasibility, estimate effort, and flag technical constrai
+What specific aspects would you like me to focus on first?
 
-(Use MODEL_PROVIDER=openai|ollama to enable real models.)
+## Implementation Validation
+As your Fullstack, I'm analyzing your requirements and will provide detailed recommendations.
 
-[DEVOPS RESPONSE - provider=mock]
-Summary for role=devops. Prompt preview: You are a DevOps engineer. Produce deployment, infra, and monitoring recommendations.
+Based on your project description, I can see several key areas that need attention:
 
-Context:
-Provide deployment topol
+1. **Core Requirements**: Understanding the essential functionality
+2. **Technical Approach**: Determining the best implementation strategy  
+3. **Timeline & Resources**: Planning realistic delivery expectations
+4. **Risk Assessment**: Identifying potential challenges and mitigations
 
-(Use MODEL_PROVIDER=openai|ollama to enable real models.)
+I'm working with our specialist team to provide comprehensive analysis and recommendations.
 
-[SECURITY RESPONSE - provider=mock]
-Summary for role=security. Prompt preview: You are a security specialist. Identify security controls, threats, and mitigations in plain language.
+What specific aspects would you like me to focus on first?
 
-Context:
-Summari
+## Infrastructure & DevOps
+As your Devops, I'm analyzing your requirements and will provide detailed recommendations.
 
-(Use MODEL_PROVIDER=openai|ollama to enable real models.)
+Based on your project description, I can see several key areas that need attention:
+
+1. **Core Requirements**: Understanding the essential functionality
+2. **Technical Approach**: Determining the best implementation strategy  
+3. **Timeline & Resources**: Planning realistic delivery expectations
+4. **Risk Assessment**: Identifying potential challenges and mitigations
+
+I'm working with our specialist team to provide comprehensive analysis and recommendations.
+
+What specific aspects would you like me to focus on first?
+
+## Security Architecture
+As your Security, I'm analyzing your requirements and will provide detailed recommendations.
+
+Based on your project description, I can see several key areas that need attention:
+
+1. **Core Requirements**: Understanding the essential functionality
+2. **Technical Approach**: Determining the best implementation strategy  
+3. **Timeline & Resources**: Planning realistic delivery expectations
+4. **Risk Assessment**: Identifying potential challenges and mitigations
+
+I'm working with our specialist team to provide comprehensive analysis and recommendations.
+
+What specific aspects would you like me to focus on first?

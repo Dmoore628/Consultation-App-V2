@@ -9,24 +9,34 @@ This module implements true multi-agent coordination with:
 - Conflict resolution and synthesis
 """
 
-from typing import Dict, List, Optional, Tuple, Any
+from typing import Dict, List, Optional, Any
 from dataclasses import dataclass
 from enum import Enum
-import json
 
 
 class AgentRole(Enum):
     """Specialized agent roles in the consulting system."""
     ENGAGEMENT_MANAGER = "engagement_manager"
-    STRATEGIST = "strategist"
-    ANALYST = "analyst"
-    ARCHITECT = "architect"
-    ML_SPECIALIST = "ml_specialist"
+    PRODUCT_STRATEGIST = "product_strategist"
+    LEAD_ANALYST = "lead_analyst"
+    SOLUTIONS_ARCHITECT = "solutions_architect"
+    SENIOR_DEVELOPER = "senior_developer"
+    ML_RESEARCHER = "ml_researcher"
+    DATA_ENGINEERING_LEAD = "data_engineering_lead"
+    AI_ETHICS_SPECIALIST = "ai_ethics_specialist"
     UX_STRATEGIST = "ux_strategist"
-    SECURITY_SPECIALIST = "security_specialist"
     DEVOPS_ENGINEER = "devops_engineer"
+    SECURITY_SPECIALIST = "security_specialist"
     PROJECT_MANAGER = "project_manager"
     QUALITY_ASSURANCE = "quality_assurance"
+    # Domain-specific specialists
+    QUANT_RESEARCHER = "quant_researcher"
+    RISK_DIRECTOR = "risk_director"
+    TRADING_SYSTEMS_ARCHITECT = "trading_systems_architect"
+    FINANCIAL_COMPLIANCE = "financial_compliance"
+    ROBOTICS_ENGINEER = "robotics_engineer"
+    COMPUTER_VISION_LEAD = "computer_vision_lead"
+    DATA_SCIENCE_LEAD = "data_science_lead"
 
 
 class AgentTaskStatus(Enum):
@@ -117,7 +127,7 @@ class AgentCoordinator:
         # Task 2 & 3: Parallel strategic and requirements analysis
         tasks.append(AgentTask(
             task_id="strategic_analysis",
-            agent_role=AgentRole.STRATEGIST,
+            agent_role=AgentRole.PRODUCT_STRATEGIST,
             task_type="strategic_analysis",
             context=context,
             dependencies=["discovery_framing"]
@@ -125,7 +135,7 @@ class AgentCoordinator:
         
         tasks.append(AgentTask(
             task_id="requirements_analysis",
-            agent_role=AgentRole.ANALYST,
+            agent_role=AgentRole.LEAD_ANALYST,
             task_type="requirements_analysis",
             context=context,
             dependencies=["discovery_framing"]
@@ -134,7 +144,7 @@ class AgentCoordinator:
         # Task 4 & 5: Cross-review between strategy and requirements
         tasks.append(AgentTask(
             task_id="strategy_review_by_analyst",
-            agent_role=AgentRole.ANALYST,
+            agent_role=AgentRole.LEAD_ANALYST,
             task_type="peer_review",
             context={"target": "strategic_analysis"},
             dependencies=["strategic_analysis", "requirements_analysis"]
@@ -142,16 +152,16 @@ class AgentCoordinator:
         
         tasks.append(AgentTask(
             task_id="requirements_review_by_strategist",
-            agent_role=AgentRole.STRATEGIST,
+            agent_role=AgentRole.PRODUCT_STRATEGIST,
             task_type="peer_review",
             context={"target": "requirements_analysis"},
             dependencies=["strategic_analysis", "requirements_analysis"]
         ))
         
-        # Task 6-8: Technical specialists analyze in parallel
+        # Task 6-9: Technical specialists analyze in parallel
         tasks.append(AgentTask(
             task_id="technical_feasibility",
-            agent_role=AgentRole.ARCHITECT,
+            agent_role=AgentRole.SOLUTIONS_ARCHITECT,
             task_type="technical_assessment",
             context=context,
             dependencies=["strategy_review_by_analyst", "requirements_review_by_strategist"]
@@ -159,7 +169,7 @@ class AgentCoordinator:
         
         tasks.append(AgentTask(
             task_id="ml_feasibility",
-            agent_role=AgentRole.ML_SPECIALIST,
+            agent_role=AgentRole.ML_RESEARCHER,
             task_type="ml_assessment",
             context=context,
             dependencies=["strategy_review_by_analyst", "requirements_review_by_strategist"]
@@ -172,14 +182,23 @@ class AgentCoordinator:
             context=context,
             dependencies=["requirements_analysis"]
         ))
+
+        # Data Science assessment (signals, baselines, evaluation)
+        tasks.append(AgentTask(
+            task_id="data_science_assessment",
+            agent_role=AgentRole.DATA_SCIENCE_LEAD,
+            task_type="data_science_assessment",
+            context=context,
+            dependencies=["requirements_analysis"]
+        ))
         
-        # Task 9: Project Manager synthesizes timeline
+        # Task 10: Project Manager synthesizes timeline
         tasks.append(AgentTask(
             task_id="timeline_synthesis",
             agent_role=AgentRole.PROJECT_MANAGER,
             task_type="timeline_planning",
             context=context,
-            dependencies=["technical_feasibility", "ml_feasibility", "ux_assessment"]
+            dependencies=["technical_feasibility", "ml_feasibility", "ux_assessment", "data_science_assessment"]
         ))
         
         # Task 10: Quality Assurance reviews all
@@ -212,7 +231,7 @@ class AgentCoordinator:
         # Task 1: Strategist drafts executive summary and business case
         tasks.append(AgentTask(
             task_id="sow_executive_summary",
-            agent_role=AgentRole.STRATEGIST,
+            agent_role=AgentRole.PRODUCT_STRATEGIST,
             task_type="executive_summary",
             context=context_with_discovery,
             dependencies=[]
@@ -221,7 +240,7 @@ class AgentCoordinator:
         # Task 2: Analyst details scope and acceptance criteria
         tasks.append(AgentTask(
             task_id="sow_scope_details",
-            agent_role=AgentRole.ANALYST,
+            agent_role=AgentRole.LEAD_ANALYST,
             task_type="scope_definition",
             context=context_with_discovery,
             dependencies=[]
@@ -230,7 +249,7 @@ class AgentCoordinator:
         # Task 3: Architect provides technical approach
         tasks.append(AgentTask(
             task_id="sow_technical_approach",
-            agent_role=AgentRole.ARCHITECT,
+            agent_role=AgentRole.SOLUTIONS_ARCHITECT,
             task_type="technical_approach",
             context=context_with_discovery,
             dependencies=["sow_scope_details"]
@@ -257,7 +276,7 @@ class AgentCoordinator:
         # Task 6: Cross-review by Strategist (business alignment)
         tasks.append(AgentTask(
             task_id="sow_strategic_review",
-            agent_role=AgentRole.STRATEGIST,
+            agent_role=AgentRole.PRODUCT_STRATEGIST,
             task_type="strategic_review",
             context={"review_targets": ["sow_scope_details", "sow_technical_approach", "sow_project_plan"]},
             dependencies=["sow_scope_details", "sow_technical_approach", "sow_project_plan"]
@@ -354,7 +373,7 @@ class AgentCoordinator:
     
     def _execute_content_task(self, task: AgentTask):
         """Execute a content generation task."""
-        from consulting_firm.consulting_personas import get_persona_prompt
+        from consulting_personas import get_persona_prompt
         
         # Build context from dependencies
         dep_context = self._build_dependency_context(task)
@@ -401,7 +420,7 @@ Provide a structured review with:
 
 Be thorough, constructive, and specific. Focus on completeness, accuracy, and business value."""
 
-        from consulting_firm.consulting_personas import get_persona_prompt
+        from consulting_personas import get_persona_prompt
         persona_prompt = get_persona_prompt(task.agent_role.value)
         
         review_output = self.model.generate(
@@ -467,6 +486,7 @@ YOUR SPECIFIC ASSIGNMENT:
             "ml_assessment": "Evaluate ML/AI feasibility: data requirements, model approaches, performance targets, ethical considerations. Be realistic about limitations.",
             "ux_assessment": "Define UX requirements: user personas, journeys, usability criteria, accessibility standards. Focus on user value.",
             "timeline_planning": "Create realistic project timeline: phases, milestones, dependencies, resources, risks. Base on technical assessments.",
+            "data_science_assessment": "Assess data science needs: problem framing, hypotheses, required signals, baseline methods, evaluation metrics, experimentation plan, and MLOps lifecycle. Provide risks and decision criteria.",
             "executive_summary": "Write compelling executive summary: problem, solution, value, investment. Decision-focused for executives.",
             "scope_definition": "Define detailed scope: in-scope deliverables with acceptance criteria, explicit out-of-scope items. Prevent scope creep.",
             "technical_approach": "Describe technical approach: architecture, technology stack, data flows, security, scalability. Business-justified choices.",

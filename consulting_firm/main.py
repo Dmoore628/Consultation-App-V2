@@ -1,11 +1,14 @@
 import argparse
 import os
-from consulting_firm.project_assessor import ProjectAssessor
-from consulting_firm.expert_team import ExpertTeam
-from consulting_firm.validation_engine import ValidationEngine
-from consulting_firm.document_generator import DocumentGenerator
-from consulting_firm.exporter import generate_architecture_diagram, export_to_docx, export_to_pdf
-from consulting_firm.config import OUTPUT_PATH
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from project_assessor import ProjectAssessor
+from expert_team import ExpertTeam
+from validation_engine import ValidationEngine
+from document_generator import DocumentGenerator
+from exporter import generate_architecture_diagram, export_to_docx, export_to_pdf
+from config import OUTPUT_PATH
 
 
 def _ensure_project_docs(project_path: str):

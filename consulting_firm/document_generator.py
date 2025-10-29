@@ -5,9 +5,13 @@ separate CSS and convert to PDF using WeasyPrint (HTML/CSS -> PDF). If
 WeasyPrint is not available, falls back to a simple ReportLab-based PDF.
 """
 import os
+import sys
 from pathlib import Path
 import markdown as md
-from . import config
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+import config
 
 try:
     from weasyprint import HTML, CSS

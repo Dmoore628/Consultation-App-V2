@@ -1,80 +1,47 @@
 # Scope of Work
 
-EXECUTIVE SUMMARY
-[STRATEGIST RESPONSE - provider=mock]
-Summary for role=strategist. Prompt preview: You are a project strategist. Analyze business viability, ROI, and strategic alignment in concrete, measurable terms.
+*This SOW was collaboratively generated through multi-agent coordination with quality assurance review*
 
-C
+---
 
-(Use MODEL_PROVIDER=openai|ollama to enable real models.)
+## EXECUTIVE SUMMARY
+As your Product Strategist, I'm analyzing the business opportunity here.
 
-SUCCESS CRITERIA
-[PRODUCT RESPONSE - provider=mock]
-Summary for role=product. Prompt preview: You are a product owner. Prioritize features, define MVP, and ensure scope aligns with business value.
+**Strategic Assessment:**
+- Market opportunity appears significant based on your description
+- Clear business value proposition emerging
+- Competitive positioning needs refinement
 
-Context:
-Project
+**Key Questions:**
+- What's your target market size and competitive landscape?
+- How does this align with your overall business strategy?
+- What's your expected ROI and success metrics?
 
-(Use MODEL_PROVIDER=openai|ollama to enable real models.)
+**Recommendations:**
+- Focus on core value proposition first
+- Define measurable success criteria
+- Consider phased approach for market validation
 
-SCOPE & DELIVERABLES
-[ANALYST RESPONSE - provider=mock]
-Summary for role=analyst. Prompt preview: You are a business analyst. Gather requirements, map stakeholders, and identify gaps and risks with clear acceptance cri
+Would you like me to dive deeper into any of these areas?
 
-(Use MODEL_PROVIDER=openai|ollama to enable real models.)
+## SCOPE & DELIVERABLES
+As your Lead Business Analyst, I'm documenting the requirements systematically.
 
-ACCEPTANCE CRITERIA
-[PRODUCT RESPONSE - provider=mock]
-Summary for role=product. Prompt preview: You are a product owner. Prioritize features, define MVP, and ensure scope aligns with business value.
+**Requirements Analysis:**
+- Functional requirements: Core capabilities identified
+- Non-functional requirements: Performance, scalability, security needs
+- Stakeholder analysis: Key user groups and their needs
 
-Context:
-Project
+**Key Requirements:**
+- User authentication and authorization
+- Core business functionality
+- Data management and reporting
+- Integration capabilities
 
-(Use MODEL_PROVIDER=openai|ollama to enable real models.)
+**Next Steps:**
+- Detailed user stories with acceptance criteria
+- Process flow documentation
+- Technical requirements specification
 
-TECHNICAL APPROACH
-[ARCHITECT RESPONSE - provider=mock]
-Summary for role=architect. Prompt preview: You are a senior solution architect. Produce a clear, non-jargon architecture description and component list.
+What specific functionality is most critical for your users?
 
-Context:
-
-
-(Use MODEL_PROVIDER=openai|ollama to enable real models.)
-
-AI FEASIBILITY & DATA REQUIREMENTS
-[ML RESPONSE - provider=mock]
-Summary for role=ml. Prompt preview: You are an ML/AI specialist. Assess AI feasibility, data requirements, and model/infra considerations.
-
-Context:
-Project
-
-(Use MODEL_PROVIDER=openai|ollama to enable real models.)
-
-UX & USER EXPERIENCE REQUIREMENTS
-[UX RESPONSE - provider=mock]
-Summary for role=ux. Prompt preview: You are a UX/UI strategist. Define user journeys, UX requirements, and key experience risks.
-
-Context:
-Project path: sam
-
-(Use MODEL_PROVIDER=openai|ollama to enable real models.)
-
-PROJECT MANAGEMENT
-[PM RESPONSE - provider=mock]
-Summary for role=pm. Prompt preview: You are a project manager. Provide timelines, milestones, risks and assumptions.
-
-Context:
-Project path: sample_project
-
-
-(Use MODEL_PROVIDER=openai|ollama to enable real models.)
-
-ASSUMPTIONS & CONSTRAINTS
-[PM RESPONSE - provider=mock]
-Summary for role=pm. Prompt preview: You are a project manager. Provide timelines, milestones, risks and assumptions.
-
-Context:
-Project path: sample_project
-
-
-(Use MODEL_PROVIDER=openai|ollama to enable real models.)

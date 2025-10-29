@@ -18,8 +18,8 @@ class IntakeStage(Enum):
     """Stages of the client intake process."""
     WELCOME = "welcome"
     CLIENT_INFO = "client_info"
-    PROJECT_OVERVIEW = "project_overview"
     DOCUMENT_UPLOAD = "document_upload"
+    PROJECT_OVERVIEW = "project_overview"
     ENGAGEMENT_CONFIRMED = "engagement_confirmed"
 
 
@@ -34,10 +34,13 @@ class ClientProfile:
     primary_objectives: str = ""
     has_existing_docs: bool = False
     uploaded_files: list[str] = None
+    inferred_project_info: dict = None
     
     def __post_init__(self):
         if self.uploaded_files is None:
             self.uploaded_files = []
+        if self.inferred_project_info is None:
+            self.inferred_project_info = {}
     
     def is_complete(self) -> bool:
         """Check if minimum required information is collected."""
@@ -77,15 +80,15 @@ class IntakeWorkflow:
                 "subtitle": "Tell us about yourself",
                 "instruction": "This helps us personalize our engagement and assign the appropriate specialists."
             },
-            IntakeStage.PROJECT_OVERVIEW: {
-                "title": "Project Overview",
-                "subtitle": "Share your vision",
-                "instruction": "Help us understand your project at a high level. We'll dive deeper during discovery."
-            },
             IntakeStage.DOCUMENT_UPLOAD: {
                 "title": "Existing Documentation",
                 "subtitle": "Share any materials you have",
                 "instruction": "Upload any existing documents (requirements, architecture, notes, etc.). This is optional but helps us provide better insights."
+            },
+            IntakeStage.PROJECT_OVERVIEW: {
+                "title": "Project Overview",
+                "subtitle": "Share your vision",
+                "instruction": "Help us understand your project at a high level. We'll dive deeper during discovery."
             },
             IntakeStage.ENGAGEMENT_CONFIRMED: {
                 "title": "Engagement Confirmed",
@@ -103,15 +106,15 @@ class IntakeWorkflow:
                 return False, "Please provide your name"
             return True, ""
         
+        elif stage == IntakeStage.DOCUMENT_UPLOAD:
+            # This stage is optional - always valid
+            return True, ""
+        
         elif stage == IntakeStage.PROJECT_OVERVIEW:
             if not profile.project_name:
                 return False, "Please provide a project name"
             if not profile.project_description:
                 return False, "Please provide a project description"
-            return True, ""
-        
-        elif stage == IntakeStage.DOCUMENT_UPLOAD:
-            # This stage is optional - always valid
             return True, ""
         
         return True, ""

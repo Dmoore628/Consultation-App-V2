@@ -1,8 +1,11 @@
 import os
+import sys
 from typing import Dict
 
-from .model_client import ModelClient, render_role_prompt
-from .agent_coordinator import AgentCoordinator, AgentRole
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from model_client import ModelClient, render_role_prompt
+from agent_coordinator import AgentCoordinator, AgentRole
 
 
 class ExpertTeam:
@@ -182,6 +185,7 @@ class ExpertTeam:
             "technical_feasibility": "## Technical Feasibility Assessment\n",
             "ml_feasibility": "## AI/ML Feasibility & Data Strategy\n",
             "ux_assessment": "## User Experience Requirements\n",
+            "data_science_assessment": "## Data Science Assessment (Signals, Baselines, Evaluation)\n",
             "timeline_synthesis": "## Project Timeline & Milestones\n",
             "discovery_synthesis": "## Executive Summary\n"
         }
@@ -194,7 +198,7 @@ class ExpertTeam:
         # Add other sections in logical order
         section_order = [
             "discovery_framing", "strategic_analysis", "requirements_analysis",
-            "technical_feasibility", "ml_feasibility", "ux_assessment", "timeline_synthesis"
+            "technical_feasibility", "ml_feasibility", "ux_assessment", "data_science_assessment", "timeline_synthesis"
         ]
         
         for task_id in section_order:

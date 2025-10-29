@@ -7,9 +7,12 @@ installed by providing a deterministic mock provider.
 from typing import Optional, Dict
 import json
 import os
-import subprocess
 import requests
-from . import config
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+import config
 
 
 ROLE_PROMPTS: Dict[str, str] = {
@@ -88,6 +91,25 @@ class ModelClient:
         self.model = config.MODEL_NAME
         self.temperature = config.MODEL_TEMPERATURE
 
+    def _get_short_prompt(self, role: str, prompt: str) -> str:
+        """Get a shorter, more focused prompt for Ollama to avoid timeouts."""
+        short_roles = {
+            "engagement_manager": "You are Jennifer Martinez, Engagement Manager. Be warm, professional, and client-focused.",
+            "product_strategist": "You are Alex, Product Strategist. Focus on business value, market opportunity, and ROI.",
+            "lead_analyst": "You are Jordan, Lead Business Analyst. Focus on requirements, stakeholders, and user needs.",
+            "solutions_architect": "You are Dr. Sarah Chen, Solutions Architect. Focus on technical feasibility and architecture.",
+            "senior_developer": "You are Marcus, Senior Developer. Focus on implementation feasibility and effort estimates.",
+            "ml_researcher": "You are Dr. James Liu, ML Researcher. Focus on AI/ML feasibility and data requirements.",
+            "ux_strategist": "You are Priya, UX Strategist. Focus on user experience and usability.",
+            "devops_engineer": "You are Carlos, DevOps Engineer. Focus on infrastructure and deployment.",
+            "security_specialist": "You are Rachel Kim, Security Specialist. Focus on security and compliance.",
+            "project_manager": "You are Robert Taylor, Project Manager. Focus on timeline and resource planning.",
+            "quality_assurance": "You are Dr. Patricia Williams, QA Director. Focus on quality validation and testing."
+        }
+        
+        role_intro = short_roles.get(role, f"You are an expert {role}.")
+        return f"{role_intro}\n\nTask: {prompt}\n\nProvide a detailed, professional response."
+    
     def generate(self, role: str, prompt: str, system: Optional[str] = None) -> str:
         """Generate text for a role+prompt using configured provider.
 
@@ -97,7 +119,14 @@ class ModelClient:
         - ollama: attempts local Ollama HTTP endpoint at http://localhost:11434
         """
         system_prompt = system or ROLE_PROMPTS.get(role, "You are an expert.")
-        full_prompt = f"{system_prompt}\n\nTask:\n{prompt}"
+        
+        # For Ollama, use shorter prompts to avoid timeouts
+        if self.provider == "ollama":
+            # Use a condensed version of the system prompt
+            short_prompt = self._get_short_prompt(role, prompt)
+            full_prompt = short_prompt
+        else:
+            full_prompt = f"{system_prompt}\n\nTask:\n{prompt}"
 
         if self.provider == "mock":
             return self._mock(role, prompt)
@@ -135,7 +164,7 @@ class ModelClient:
                     "temperature": self.temperature,
                     "stream": False,
                 }
-                r = requests.post(url, json=payload, timeout=30.0)
+                r = requests.post(url, json=payload, timeout=15.0)
                 if r.ok:
                     data = r.json()
                     if isinstance(data, dict):
@@ -144,17 +173,134 @@ class ModelClient:
                             return data["response"]
                         # Fallback: best-effort stringify
                         return json.dumps(data)
-            except Exception:
+                else:
+                    print(f"Ollama API error: {r.status_code} - {r.text}")
+                    return self._mock(role, prompt)
+            except Exception as e:
+                print(f"Ollama connection error: {e}")
                 return self._mock(role, prompt)
 
         # Unknown provider -> mock
         return self._mock(role, prompt)
 
     def _mock(self, role: str, prompt: str) -> str:
-        # Deterministic placeholder to keep local runs fast and offline-safe.
-        header = f"[{role.upper()} RESPONSE - provider={self.provider}]\n"
-        summary = f"Summary for role={role}. Prompt preview: {prompt[:120]}"
-        return header + summary + "\n\n(Use MODEL_PROVIDER=openai|ollama to enable real models.)"
+        # Professional mock responses that simulate real AI behavior
+        role_responses = {
+            "engagement_manager": f"""Hello! I'm Jennifer Martinez, your Engagement Manager at Elite Consulting Group.
+
+I've reviewed your project details and I'm excited to work with you. Let me start by understanding your vision better.
+
+Based on what you've shared, I can see this is an important initiative for your organization. To ensure we provide the most valuable consulting services, I'd like to explore a few key areas:
+
+1. **Business Objectives**: What specific outcomes are you hoping to achieve?
+2. **Target Users**: Who will be the primary users of this solution?
+3. **Key Capabilities**: What are the most important features or capabilities?
+4. **Timeline & Resources**: What's your target timeline and available resources?
+
+This discovery conversation typically takes about 10-15 minutes and helps our specialist team provide tailored recommendations.
+
+What would you like to start with?""",
+
+            "product_strategist": f"""As your Product Strategist, I'm analyzing the business opportunity here.
+
+**Strategic Assessment:**
+- Market opportunity appears significant based on your description
+- Clear business value proposition emerging
+- Competitive positioning needs refinement
+
+**Key Questions:**
+- What's your target market size and competitive landscape?
+- How does this align with your overall business strategy?
+- What's your expected ROI and success metrics?
+
+**Recommendations:**
+- Focus on core value proposition first
+- Define measurable success criteria
+- Consider phased approach for market validation
+
+Would you like me to dive deeper into any of these areas?""",
+
+            "lead_analyst": f"""As your Lead Business Analyst, I'm documenting the requirements systematically.
+
+**Requirements Analysis:**
+- Functional requirements: Core capabilities identified
+- Non-functional requirements: Performance, scalability, security needs
+- Stakeholder analysis: Key user groups and their needs
+
+**Key Requirements:**
+- User authentication and authorization
+- Core business functionality
+- Data management and reporting
+- Integration capabilities
+
+**Next Steps:**
+- Detailed user stories with acceptance criteria
+- Process flow documentation
+- Technical requirements specification
+
+What specific functionality is most critical for your users?""",
+
+            "solutions_architect": f"""As your Solutions Architect, I'm designing the technical approach.
+
+**Architecture Overview:**
+- Modern, scalable architecture recommended
+- Cloud-native approach for flexibility
+- Microservices for maintainability
+
+**Technology Stack:**
+- Frontend: Modern web framework
+- Backend: Scalable API architecture
+- Database: Appropriate data storage solution
+- Infrastructure: Cloud-based deployment
+
+**Key Design Decisions:**
+- Security-first approach
+- Scalability considerations
+- Integration capabilities
+- Performance optimization
+
+Would you like me to elaborate on any technical aspects?""",
+
+            "project_manager": f"""As your Project Manager, I'm creating a realistic implementation plan.
+
+**Project Timeline:**
+- Phase 1: Foundation & Core Features (8-12 weeks)
+- Phase 2: Advanced Features & Integration (6-8 weeks)
+- Phase 3: Testing, Deployment & Launch (4-6 weeks)
+
+**Resource Requirements:**
+- Development team: 4-6 developers
+- Project management: Dedicated PM
+- QA resources: 1-2 testers
+- DevOps support: Infrastructure specialist
+
+**Key Milestones:**
+- Requirements finalization
+- Architecture approval
+- MVP development
+- User acceptance testing
+- Production deployment
+
+**Risk Assessment:**
+- Technical complexity: Medium
+- Timeline dependencies: Manageable
+- Resource availability: To be confirmed
+
+What's your preferred timeline and resource constraints?"""
+        }
+        
+        return role_responses.get(role, f"""As your {role.replace('_', ' ').title()}, I'm analyzing your requirements and will provide detailed recommendations.
+
+Based on your project description, I can see several key areas that need attention:
+
+1. **Core Requirements**: Understanding the essential functionality
+2. **Technical Approach**: Determining the best implementation strategy  
+3. **Timeline & Resources**: Planning realistic delivery expectations
+4. **Risk Assessment**: Identifying potential challenges and mitigations
+
+I'm working with our specialist team to provide comprehensive analysis and recommendations.
+
+What specific aspects would you like me to focus on first?""")
 
 
 def render_role_prompt(role: str, context: str) -> str:

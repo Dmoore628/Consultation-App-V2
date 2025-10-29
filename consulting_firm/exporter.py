@@ -1,7 +1,6 @@
 """Export helpers: DOCX and PDF generation plus architecture diagrams."""
 from typing import Dict
 import os
-import io
 # reportlab imported lazily in export_to_pdf
 
 

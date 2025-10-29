@@ -1,17 +1,29 @@
 # Implementation Roadmap
 
-[PM RESPONSE - provider=mock]
-Summary for role=pm. Prompt preview: You are a project manager. Provide timelines, milestones, risks and assumptions.
+## Phased Delivery Plan
+As your Pm, I'm analyzing your requirements and will provide detailed recommendations.
 
-Context:
-Create a phased roadmap (MVP,
+Based on your project description, I can see several key areas that need attention:
 
-(Use MODEL_PROVIDER=openai|ollama to enable real models.)
+1. **Core Requirements**: Understanding the essential functionality
+2. **Technical Approach**: Determining the best implementation strategy  
+3. **Timeline & Resources**: Planning realistic delivery expectations
+4. **Risk Assessment**: Identifying potential challenges and mitigations
 
-[DEVOPS RESPONSE - provider=mock]
-Summary for role=devops. Prompt preview: You are a DevOps engineer. Produce deployment, infra, and monitoring recommendations.
+I'm working with our specialist team to provide comprehensive analysis and recommendations.
 
-Context:
-List milestones with dep
+What specific aspects would you like me to focus on first?
 
-(Use MODEL_PROVIDER=openai|ollama to enable real models.)
+## Deployment Milestones & Gates
+As your Devops, I'm analyzing your requirements and will provide detailed recommendations.
+
+Based on your project description, I can see several key areas that need attention:
+
+1. **Core Requirements**: Understanding the essential functionality
+2. **Technical Approach**: Determining the best implementation strategy  
+3. **Timeline & Resources**: Planning realistic delivery expectations
+4. **Risk Assessment**: Identifying potential challenges and mitigations
+
+I'm working with our specialist team to provide comprehensive analysis and recommendations.
+
+What specific aspects would you like me to focus on first?
